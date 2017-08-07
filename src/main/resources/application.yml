@@ -1,0 +1,53 @@
+##七牛云的key
+qiniu:
+  accessKey: UxE8vSNQaSySIBdLs9PQoEiSnlXJg7P6qePe8cVQ
+  secretKey: CKoW09ltLYqMu0BvOYAnajZCa9oaHBW0QrVMtx8R
+  bucketName: jeeqb-bucket
+  basePath: http://ou5pt4yz3.bkt.clouddn.com/
+
+## 百度推送
+baidu:
+  task:
+    postUrl: http://data.zz.baidu.com/urls?site=www.jeeqb.com&token=gFrERL2N0wxwNUqc
+    baseUrl: http://www.jeeqb.com
+
+#数据库连接配置
+spring:
+  datasource:
+    url: jdbc:mysql://114.215.71.171:3306/zblog
+    username: root
+    password: rocky
+    driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    mode: HTML5
+  #字符集和json格式工具
+  http:
+    encoding:
+      charset: utf-8
+    converters:
+      preferred-json-mapper: jackson
+    multipart:
+      max-file-size: 10MB
+  application:
+    name: eumji-blog
+
+#mynatis配置
+mybatis:
+  type-aliases-package: com.jeeqb.zblog.vo
+  #mapper加载路径
+  mapper-locations: classpath:mapper/*Mapper.xml
+  #myatbis配置文件
+  config-location: classpath:mybatis-conf.xml
+#加载log4j2
+logging:
+  config: classpath:log4j2.xml
+  level: debug
+  file:
+server:
+  session-timeout : 3600
+  port: 18080
+
+
+
+
+
