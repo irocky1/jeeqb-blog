@@ -120,6 +120,7 @@ $("#article-add").on('click',function () {
 
 // 删除文章
 $("#dataList").on('click','.article-delete',function () {
+	var id = $(this).parent().data("id");
     new $.flavr({
         content: '您确定要删除吗?',
 
@@ -127,7 +128,7 @@ $("#dataList").on('click','.article-delete',function () {
             primary: {
                 text: '确定', style: 'primary', action: function () {
                     $.ajax({
-                        url : '/admin/article/delete/'+$(this).parent().data("id"),
+                        url : '/admin/article/delete/'+id,
                         method: "GET",
                         success  : function(data) {
                             if(data.resultCode == 'success'){
