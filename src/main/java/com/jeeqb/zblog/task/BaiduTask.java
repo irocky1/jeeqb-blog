@@ -1,6 +1,11 @@
 package com.jeeqb.zblog.task;
 
-import com.jeeqb.zblog.service.ArticleService;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.google.common.collect.Lists;
+import com.jeeqb.zblog.service.ArticleService;
 
 /**
  * 百度推送的工具类
@@ -58,8 +60,38 @@ public class BaiduTask {
        writerUrl(initConnect(),ids);
 
     }
-
     /**
+     * 自动推送主站链接
+     * @throws IOException
+     */
+    @Scheduled(fixedDelay = 300000)
+    public void postMainDomain() throws IOException {
+    	List<String> urlList = Lists.newArrayList();
+    	urlList.add(BASE_URL);
+    	urlList.add(BASE_URL+"/introduction.htm");
+    	urlList.add(BASE_URL+"/index.htm");
+    	postUrl(initConnect(),urlList);
+    }
+
+    private void postUrl(HttpURLConnection conn, List<String> urlList) throws IOException {
+    	PrintWriter out=null;
+        BufferedReader bf = null;
+        StringBuilder sb = new StringBuilder();
+        for(String url : urlList){
+            sb.append(url+"\n");
+        }
+        logger.info("推送的url为:"+sb.toString());
+        conn.connect();
+        out=new PrintWriter(conn.getOutputStream());
+        out.print(sb.toString().trim());
+        out.flush();
+        int code = conn.getResponseCode();
+        if (code == 200){
+            logger.info("the article url push success");
+        }
+	}
+
+	/**
      * 重构推送文章的write方法
      * @param conn
      * @param ids
@@ -67,7 +99,6 @@ public class BaiduTask {
      */
     private void writerUrl(HttpURLConnection conn,String... ids) throws IOException {
         PrintWriter out=null;
-        BufferedReader bf = null;
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < ids.length; i++){
             sb.append(BASE_URL+"/article/details/"+ids[i]+"\n");
@@ -81,7 +112,6 @@ public class BaiduTask {
         if (code == 200){
             logger.info("the article url push success");
         }
-
     }
 
     /**

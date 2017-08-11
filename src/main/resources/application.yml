@@ -14,9 +14,9 @@ baidu:
 #数据库连接配置
 spring:
   datasource:
-    url: jdbc:mysql://111:3306/zblog?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://11:3306/zblog?useUnicode=true&characterEncoding=UTF-8
     username: 11
-    password: 111
+    password: 11
     driver-class-name: com.mysql.jdbc.Driver
   thymeleaf:
     mode: HTML5
@@ -29,7 +29,7 @@ spring:
     multipart:
       max-file-size: 10MB
   application:
-    name: eumji-blog
+    name: jeeqb-blog
 
 #mynatis配置
 mybatis:
