@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/resources/static/css/share.css=UTF-8
 encoding//src/main/resources/templates/admin/article/articleEditInfo.html=UTF-8
 encoding//src/main/resources/templates/admin/article/articleInfo.html=UTF-8
 encoding//src/main/resources/templates/admin/article/articleList.html=UTF-8
